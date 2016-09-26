@@ -18,7 +18,7 @@
  - move current directory to tankdroid/app/src/main/jni
  - run "ndk-build NDK_LIBS_OUT=../jniLibs"
  - open Android Studio and build Java part
- - that all ^_^
+ - that's all ^_^
 
 **Thank**
 
