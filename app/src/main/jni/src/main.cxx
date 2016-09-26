@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-//#include "game.hxx"
+#include "game.hxx"
 
 int main(int argc, char *argv[])
 {
@@ -11,11 +11,9 @@ int main(int argc, char *argv[])
 	TTF_Init();
 
 	// run game framework
-	/*
 	Game *game = new Game();
 	game->run();
 	delete game;
-	*/
 
 	// uninitializes SDL
 	TTF_Quit();

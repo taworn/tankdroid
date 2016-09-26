@@ -4,7 +4,21 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := main
 
-LOCAL_SRC_FILES := main.cxx
+LOCAL_SRC_FILES := \
+	main.cxx \
+	game.cxx \
+	scenes\scene_win.cxx \
+	scenes\scene_lost.cxx \
+	scenes\scene_play.cxx \
+	scenes\scene_stage.cxx \
+	scenes\scene_title.cxx \
+	scenes\scene.cxx \
+	game\arena.cxx \
+	game\map.cxx \
+	drawnum.cxx \
+	menu.cxx \
+	animation.cxx \
+	sprite.cxx
 
 LOCAL_STATIC_LIBRARIES := SDL2_static
 

@@ -10,7 +10,20 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include $(LOCAL_PATH)/../SDL_image
 
 # Add your application source files here...
 LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
-	main.cxx
+	main.cxx \
+	game.cxx \
+	scenes\scene_win.cxx \
+	scenes\scene_lost.cxx \
+	scenes\scene_play.cxx \
+	scenes\scene_stage.cxx \
+	scenes\scene_title.cxx \
+	scenes\scene.cxx \
+	game\arena.cxx \
+	game\map.cxx \
+	drawnum.cxx \
+	menu.cxx \
+	animation.cxx \
+	sprite.cxx
 
 LOCAL_SHARED_LIBRARIES := SDL2 SDL2_image SDL2_ttf
 
