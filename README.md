@@ -10,6 +10,16 @@
  - SDL2_image v.2.0.1
  - SDL2_ttf v.2.0.14
 
+**Build**
+
+ - download and unzip SDL2, SDL2_image, SDL2_ttf
+ - move downloaded files to tankdroid/app/src/main/jni
+ - rename them to SDL, SDL_image, SDL_ttf
+ - move current directory to tankdroid/app/src/main/jni
+ - run "ndk-build NDK_LIBS_OUT=../jniLibs"
+ - open Android Studio and build Java part
+ - that all ^_^
+
 **Thank**
 
  - google.com - to search every time when you want to learn any new things
