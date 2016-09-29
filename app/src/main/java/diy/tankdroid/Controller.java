@@ -19,20 +19,12 @@ public class Controller {
         LayoutInflater inflater = LayoutInflater.from(context);
         controller = inflater.inflate(R.layout.controller, null, false);
 
-        Button buttonEsc = (Button) controller.findViewById(R.id.button_esc);
         Button buttonLeft = (Button) controller.findViewById(R.id.button_left);
         Button buttonUp = (Button) controller.findViewById(R.id.button_up);
         Button buttonDown = (Button) controller.findViewById(R.id.button_down);
         Button buttonRight = (Button) controller.findViewById(R.id.button_right);
         Button buttonEnter = (Button) controller.findViewById(R.id.button_enter);
 
-        buttonEsc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "ESC click");
-                SDLActivity.onNativeKeyDown(111);
-            }
-        });
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

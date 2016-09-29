@@ -146,22 +146,6 @@ void Game::run()
 				fpsTime = fpsLast;
 			}
 
-			/*
-			// draws FPS
-			SDL_Rect rect;
-			char fpsBuffer[16];
-			sprintf(fpsBuffer, "%u", fps);
-			SDL_Surface *surfaceFPS = TTF_RenderUTF8_Solid(fontSmall, fpsBuffer, { 0x80, 0x80, 0x80 });
-			SDL_Texture *textureFPS = SDL_CreateTextureFromSurface(renderer, surfaceFPS);
-			rect.x = surfaceWindow->w - surfaceFPS->w;
-			rect.y = surfaceWindow->h - surfaceFPS->h;
-			rect.w = surfaceFPS->w;
-			rect.h = surfaceFPS->h;
-			SDL_RenderCopy(renderer, textureFPS, NULL, &rect);
-			SDL_DestroyTexture(textureFPS);
-			SDL_FreeSurface(surfaceFPS);
-			*/
-
 			// draws FPS
 			SDL_Point point = {
 				w - (drawNumberSmall->getWidth() * 4),
@@ -171,7 +155,7 @@ void Game::run()
 
 			// outputs to screen
 			SDL_RenderPresent(renderer);
-			}
+		}
 
 		// polls events until queue empty
 		while (SDL_PollEvent(&e)) {
@@ -199,8 +183,8 @@ void Game::run()
 				exit = true;
 			}
 		}
-		}
+	}
 
 	SDL_Log("exit");
-	}
+}
 

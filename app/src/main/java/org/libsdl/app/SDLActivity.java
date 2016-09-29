@@ -326,6 +326,9 @@ public class SDLActivity extends Activity {
                 ) {
             return false;
         }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            nativeQuit();
+        }
         return super.dispatchKeyEvent(event);
     }
 
