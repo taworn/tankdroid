@@ -12,7 +12,6 @@ Animation::~Animation()
 
 Animation::Animation()
 	: plays(), currentPlaying(-1), currentImage(0), ending(false)
-	, currentX(0), currentY(0), velocityX(0), velocityY(0)
 {
 	timeStart = SDL_GetTicks();
 }

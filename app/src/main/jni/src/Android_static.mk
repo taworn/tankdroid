@@ -15,6 +15,7 @@ LOCAL_SRC_FILES := \
 	scenes\scene.cxx \
 	game\arena.cxx \
 	game\map.cxx \
+	game\movable.cxx \
 	drawnum.cxx \
 	menu.cxx \
 	animation.cxx \

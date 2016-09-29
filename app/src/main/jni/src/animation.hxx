@@ -42,37 +42,6 @@ public:
 	 */
 	void draw(SDL_Renderer *renderer, Sprite *sprite, SDL_Rect *rectTarget);
 
-	float getCurrentX() const { return currentX; }
-	float getCurrentY() const { return currentY; }
-	float getVelocityX() const { return velocityX; }
-	float getVelocityY() const { return velocityY; }
-
-	void moveTo(float x, float y)
-	{
-		currentX = x;
-		currentY = y;
-	}
-
-	void moveBy(float dx, float dy)
-	{
-		currentX += dx;
-		currentY += dy;
-	}
-
-	void setVelocity(float dx, float dy)
-	{
-		velocityX = dx;
-		velocityY = dy;
-	}
-
-	void playFrame(bool enableX, bool enableY)
-	{
-		if (enableX)
-			currentX += velocityX;
-		if (enableY)
-			currentY += velocityY;
-	}
-
 	bool isEnded() const { return ending; }
 
 private:
@@ -87,9 +56,6 @@ private:
 	int currentPlaying;
 	int currentImage;
 	bool ending;
-
-	float currentX, currentY;
-	float velocityX, velocityY;
 
 	unsigned int timeStart;
 

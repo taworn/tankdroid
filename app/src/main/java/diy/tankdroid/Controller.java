@@ -37,8 +37,8 @@ public class Controller {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "left click");
-                //SDLActivity.onNativeKeyDown(21);
-                SDLActivity.onNativeKeyDown(40);
+                SDLActivity.onNativeKeyDown(21);
+                //SDLActivity.onNativeKeyDown(40);
             }
         });
         buttonUp.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +59,8 @@ public class Controller {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "right click");
-                //SDLActivity.onNativeKeyDown(22);
-                SDLActivity.onNativeKeyDown(51);
+                SDLActivity.onNativeKeyDown(22);
+                //SDLActivity.onNativeKeyDown(51);
             }
         });
         buttonEnter.setOnClickListener(new View.OnClickListener() {

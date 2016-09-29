@@ -5,6 +5,7 @@
 #ifndef GAME_COMMON_HXX
 #define GAME_COMMON_HXX
 
+#include "movable.hxx"
 #include "map.hxx"
 #include "arena.hxx"
 
