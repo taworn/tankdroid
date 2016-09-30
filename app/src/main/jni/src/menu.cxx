@@ -76,7 +76,7 @@ bool Menu::handleKey(SDL_KeyboardEvent key)
 			selected = count - 1;
 		return true;
 	}
-	else if (key.keysym.sym == SDLK_DOWN) {
+	else if (key.keysym.sym == SDLK_DOWN || key.keysym.sym == SDLK_TAB) {
 		selected++;
 		if (selected >= count)
 			selected = 0;

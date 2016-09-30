@@ -26,7 +26,7 @@ ScenePlay::ScenePlay()
 bool ScenePlay::handleKey(SDL_KeyboardEvent key)
 {
 	SDL_Log("ScenePlay::handleKey(%d)", key.keysym.sym);
-	if (key.keysym.sym == SDLK_l) {
+	if (key.keysym.sym == SDLK_SPACE || key.keysym.sym == SDLK_RETURN) {
 		Game::instance()->changeScene(Game::SCENE_LOST);
 		return true;
 	}

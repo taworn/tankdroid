@@ -48,22 +48,22 @@ public class Controller {
                 if (Math.abs(ratio) > 1) {
                     // up or down
                     if (y < 0) {
-                        SDLActivity.onNativeKeyDown(19);
+                        SDLActivity.onNativeKeyDown(19);  // up key
                         keyCode = 19;
                     }
                     else {
-                        SDLActivity.onNativeKeyDown(20);
+                        SDLActivity.onNativeKeyDown(20);  // down key
                         keyCode = 20;
                     }
                 }
                 else {
                     // left or right
                     if (x < 0) {
-                        SDLActivity.onNativeKeyDown(21);
+                        SDLActivity.onNativeKeyDown(21);  // left key
                         keyCode = 21;
                     }
                     else {
-                        SDLActivity.onNativeKeyDown(22);
+                        SDLActivity.onNativeKeyDown(22);  // right key
                         keyCode = 22;
                     }
                 }
@@ -80,15 +80,13 @@ public class Controller {
         buttonSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "down click");
-                SDLActivity.onNativeKeyDown(20);
+                SDLActivity.onNativeKeyDown(61);  // TAB key
             }
         });
         buttonSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "ENTER click");
-                SDLActivity.onNativeKeyDown(66);
+                SDLActivity.onNativeKeyDown(66);  // ENTER key
             }
         });
 
