@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tankdroid</string>
+    <string name="button_empty">empty</string>
 </resources>

@@ -1,11 +1,14 @@
 package diy.tankdroid;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import org.libsdl.app.SDLActivity;
 
@@ -13,55 +16,92 @@ public class Controller {
 
     private static final String TAG = "SDL";
 
+    private static final int TIME_PER_CLICK = 100;
+
     private View controller;
+    private Handler handler;
+    private Runnable runnable;
+    private int keyCode;
+    private long lastTime;
 
     public Controller(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
         controller = inflater.inflate(R.layout.controller, null, false);
 
-        Button buttonLeft = (Button) controller.findViewById(R.id.button_left);
-        Button buttonUp = (Button) controller.findViewById(R.id.button_up);
-        Button buttonDown = (Button) controller.findViewById(R.id.button_down);
-        Button buttonRight = (Button) controller.findViewById(R.id.button_right);
-        Button buttonEnter = (Button) controller.findViewById(R.id.button_enter);
+        ImageView buttonCross = (ImageView) controller.findViewById(R.id.button_cross);
+        ImageButton buttonSelect = (ImageButton) controller.findViewById(R.id.button_select);
+        ImageButton buttonSpace = (ImageButton) controller.findViewById(R.id.button_space);
 
-        buttonLeft.setOnClickListener(new View.OnClickListener() {
+        buttonCross.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Log.d(TAG, "left click");
-                SDLActivity.onNativeKeyDown(21);
-                //SDLActivity.onNativeKeyDown(40);
+            public boolean onTouch(View view, MotionEvent event) {
+                if (System.currentTimeMillis() - lastTime < TIME_PER_CLICK * 2)
+                    return true;
+
+                float w = view.getWidth() / 2;
+                float h = view.getHeight() / 2;
+                float x = event.getX() - w;
+                float y = event.getY() - h;
+                float ratio = y / x;
+                Log.d(TAG, String.format("(x, y) ratio = (%2f, %2f) %2f", x, y, ratio));
+
+                if (Math.abs(ratio) > 1) {
+                    // up or down
+                    if (y < 0) {
+                        SDLActivity.onNativeKeyDown(19);
+                        keyCode = 19;
+                    }
+                    else {
+                        SDLActivity.onNativeKeyDown(20);
+                        keyCode = 20;
+                    }
+                }
+                else {
+                    // left or right
+                    if (x < 0) {
+                        SDLActivity.onNativeKeyDown(21);
+                        keyCode = 21;
+                    }
+                    else {
+                        SDLActivity.onNativeKeyDown(22);
+                        keyCode = 22;
+                    }
+                }
+
+                handler.removeCallbacks(runnable);
+                int action = event.getAction();
+                if (action == MotionEvent.ACTION_MOVE) {
+                    handler.postDelayed(runnable, TIME_PER_CLICK * 2);
+                }
+
+                return true;
             }
         });
-        buttonUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "up click");
-                SDLActivity.onNativeKeyDown(19);
-            }
-        });
-        buttonDown.setOnClickListener(new View.OnClickListener() {
+        buttonSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "down click");
                 SDLActivity.onNativeKeyDown(20);
             }
         });
-        buttonRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "right click");
-                SDLActivity.onNativeKeyDown(22);
-                //SDLActivity.onNativeKeyDown(51);
-            }
-        });
-        buttonEnter.setOnClickListener(new View.OnClickListener() {
+        buttonSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "ENTER click");
                 SDLActivity.onNativeKeyDown(66);
             }
         });
+
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                SDLActivity.onNativeKeyDown(keyCode);
+                handler.postDelayed(runnable, TIME_PER_CLICK);
+            }
+        };
+        keyCode = 0;
+        lastTime = System.currentTimeMillis();
     }
 
     public void attach(ViewGroup layout) {
