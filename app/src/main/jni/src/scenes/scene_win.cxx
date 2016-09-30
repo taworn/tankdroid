@@ -32,7 +32,7 @@ bool SceneWin::handleKey(SDL_KeyboardEvent key)
 	return false;
 }
 
-void SceneWin::render(unsigned int timeUsed)
+void SceneWin::render(int timeUsed)
 {
 	Game *game = Game::instance();
 	SDL_Rect rect;

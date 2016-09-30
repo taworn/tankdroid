@@ -15,7 +15,7 @@ public:
 	SceneWin();
 
 	virtual bool handleKey(SDL_KeyboardEvent key);
-	virtual void render(unsigned int timeUsed);
+	virtual void render(int timeUsed);
 
 private:
 	SDL_Surface *surface;

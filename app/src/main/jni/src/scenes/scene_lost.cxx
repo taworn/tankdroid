@@ -50,7 +50,7 @@ bool SceneLost::handleKey(SDL_KeyboardEvent key)
 	return false;
 }
 
-void SceneLost::render(unsigned int timeUsed)
+void SceneLost::render(int timeUsed)
 {
 	Game *game = Game::instance();
 	SDL_Rect rect;

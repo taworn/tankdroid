@@ -39,7 +39,7 @@ bool SceneStage::handleKey(SDL_KeyboardEvent key)
 	return false;
 }
 
-void SceneStage::render(unsigned int timeUsed)
+void SceneStage::render(int timeUsed)
 {
 	Game *game = Game::instance();
 	SDL_Rect rect;

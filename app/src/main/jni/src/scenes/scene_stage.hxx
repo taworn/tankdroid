@@ -15,12 +15,12 @@ public:
 	SceneStage();
 
 	virtual bool handleKey(SDL_KeyboardEvent key);
-	virtual void render(unsigned int timeUsed);
+	virtual void render(int timeUsed);
 
 private:
 	SDL_Surface *surface;
 	SDL_Texture *texture;
-	unsigned int timeTotal;
+	int timeTotal;
 };
 
 #endif // SCENES_SCENE_STAGE_HXX

@@ -36,7 +36,7 @@ public:
 	/**
 	 * Draws map.
 	 */
-	void draw(SDL_Renderer *renderer, unsigned int timeUsed);
+	void draw(SDL_Renderer *renderer, int timeUsed);
 
 	int getUnitWidth() const { return width * 2; }
 	int getUnitHeight() const { return height * 2; }

@@ -154,7 +154,7 @@ bool Map::canMove(Movable *movable, int direction, SDL_Point *pt)
 	return false;
 }
 
-void Map::draw(SDL_Renderer *renderer, unsigned int timeUsed)
+void Map::draw(SDL_Renderer *renderer, int timeUsed)
 {
 	SDL_Rect viewport;
 	viewport.x = 0;

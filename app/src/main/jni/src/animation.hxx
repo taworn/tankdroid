@@ -50,7 +50,7 @@ private:
 		int start;
 		int end;
 		int onEnd;
-		unsigned int time;
+		int time;
 	};
 	PLAYING plays[PLAYING_MAX];
 	int currentPlaying;

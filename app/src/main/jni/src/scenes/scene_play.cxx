@@ -53,7 +53,7 @@ bool ScenePlay::handleKey(SDL_KeyboardEvent key)
 	return false;
 }
 
-void ScenePlay::render(unsigned int timeUsed)
+void ScenePlay::render(int timeUsed)
 {
 	Game *game = Game::instance();
 	game->getArena()->draw(timeUsed);

@@ -29,7 +29,7 @@ public:
 	/**
 	 * Called every render frame.
 	 */
-	virtual void render(unsigned int timeUsed);
+	virtual void render(int timeUsed);
 
 private:
 	Scene(const Scene&);

@@ -24,7 +24,7 @@ bool Scene::handleKey(SDL_KeyboardEvent key)
 	return false;
 }
 
-void Scene::render(unsigned int timeUsed)
+void Scene::render(int timeUsed)
 {
 }
 

@@ -50,7 +50,11 @@ Game::Game()
 	singleton = this;
 
 	// creates window
+#ifdef __ANDROID__
+	window = SDL_CreateWindow("Tankdroid", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, 0);
+#else
 	window = SDL_CreateWindow("Tankman", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, 0);
+#endif
 
 	// creates renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -133,7 +137,7 @@ void Game::run()
 			timeUsed = SDL_GetTicks() - timeLast;
 			timeLast = SDL_GetTicks();
 			if (nextSceneId < 0)
-				scene->render(timeUsed);
+				scene->render((int)timeUsed);
 			else
 				switchScene();
 

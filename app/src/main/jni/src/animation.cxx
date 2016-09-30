@@ -41,7 +41,7 @@ void Animation::draw(SDL_Renderer *renderer, Sprite *sprite, SDL_Rect *rectTarge
 	if (!ending) {
 		sprite->draw(renderer, currentImage, rectTarget);
 
-		unsigned int usage = SDL_GetTicks() - timeStart;
+		int usage = (int)(SDL_GetTicks() - timeStart);
 		if (usage > plays[currentPlaying].time) {
 			currentImage++;
 			if (currentImage >= plays[currentPlaying].end) {

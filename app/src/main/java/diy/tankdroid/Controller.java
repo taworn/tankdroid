@@ -16,7 +16,7 @@ public class Controller {
 
     private static final String TAG = "SDL";
 
-    private static final int TIME_PER_CLICK = 100;
+    private static final int TIME_PER_CLICK = 50;
 
     private View controller;
     private Handler handler;

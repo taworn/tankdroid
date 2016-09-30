@@ -44,7 +44,7 @@ public:
 	/**
 	 * Draws a battle scene.
 	 */
-	void draw(unsigned int timeUsed);
+	void draw(int timeUsed);
 
 private:
 	int score;
