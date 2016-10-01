@@ -27,7 +27,7 @@ void Arena::startBattle()
 	if (map != NULL)
 		delete map;
 	map = new Map();
-	map->load(TANK_RES("debug0.map"));
+	map->load(TANK_RES("debug2.map"));
 }
 
 void Arena::draw(int timeUsed)

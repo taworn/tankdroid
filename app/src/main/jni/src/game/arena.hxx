@@ -12,12 +12,12 @@ class Arena
 {
 public:
 	/**
-	 * Destructs an arena.
+	 * Destructs the arena.
 	 */
 	virtual ~Arena();
 
 	/**
-	 * Constructs an arena.
+	 * Constructs the arena.
 	 */
 	Arena();
 

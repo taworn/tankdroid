@@ -5,8 +5,6 @@
 #ifndef GAME_MOVABLE_HXX
 #define GAME_MOVABLE_HXX
 
-class Map;
-
 /**
  * A movable class.
  */
@@ -28,7 +26,7 @@ public:
 	/**
 	 * Destructs the movable.
 	 */
-	~Movable();
+	virtual ~Movable();
 
 	/**
 	 * Constructs the movable.
@@ -64,8 +62,21 @@ public:
 	int getY() const { return rect.y; }
 	int getUnitX() const { return rect.x / 32; }
 	int getUnitY() const { return rect.y / 32; }
+	const SDL_Rect getRect() const { return rect; }
 
 	bool isMovingAction() const { return action >= ACTION_MOVE_LEFT && action <= ACTION_MOVE_DOWN; }
+
+	int getHP() const { return hp; }
+
+protected:
+	void setXY(int x, int y) { rect.x = x; rect.y = y; }
+
+	void setTimes(int timePerDead, int timePerMove) { this->timePerDead = timePerDead; this->timePerMove = timePerMove; }
+	int getTimePerDead() const { return timePerDead; }
+	int getTimePerMove() const { return timePerMove; }
+
+	Animation* getAni() { return &ani; }
+	Arena* getArena() const { return arena; }
 
 private:
 	int action;         // see ACTION_* constants
@@ -76,10 +87,13 @@ private:
 	int timeUsed;       // time in animation
 	bool lock;          // lock when perform animation
 
+	int hp;  // hit point
+
 	SDL_Rect rect;       // rectangle (x, y, w, h) for this unit, relative with (0, 0) of map
 	SDL_Point target;    // move to target
 	SDL_Point distance;  // distance between target and point
 	Animation ani;
+	Arena *arena;
 
 	Movable(const Movable&);
 	Movable& operator=(const Movable&);

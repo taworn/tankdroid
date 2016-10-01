@@ -5,8 +5,6 @@
 #ifndef GAME_MAP_HXX
 #define GAME_MAP_HXX
 
-class Movable;
-
 /**
  * A map class.
  */
@@ -48,17 +46,15 @@ private:
 	Sprite *spriteTank;
 	Sprite *spriteMisc;
 
-	// map loaded
-	int width, height;
-	int32_t *blockRaw;
-
 	// map parsed
+	int width, height;
 	char *blockMap;
 	int *imageMap;
 
 	// movables and bullets
-	Movable movHero;
-	Movable movTanks[64];
+	int countTank;
+	Tank movTanks[64];
+	TankHero movHero;
 	//Bullet bullets[128];
 	//Item item[16];
 
@@ -71,6 +67,8 @@ private:
 	static const int BLOCK_HERO = 6;
 
 	void rawToMap(int raw, char *block, int *image);
+	bool blockIsPass(int unitX, int unitY);
+	bool blockHasEnemy(SDL_Rect *rect);
 
 	Map(const Map&);
 	Map& operator=(const Map&);

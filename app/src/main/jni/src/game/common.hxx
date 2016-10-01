@@ -6,6 +6,8 @@
 #define GAME_COMMON_HXX
 
 #include "movable.hxx"
+#include "tank.hxx"
+#include "tankhero.hxx"
 #include "map.hxx"
 #include "arena.hxx"
 

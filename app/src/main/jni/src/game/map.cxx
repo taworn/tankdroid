@@ -15,8 +15,6 @@ Map::~Map()
 		delete[] imageMap;
 	if (blockMap)
 		delete[] blockMap;
-	if (blockRaw)
-		delete[] blockRaw;
 	if (spriteMisc)
 		delete spriteMisc;
 	if (spriteTank)
@@ -29,8 +27,9 @@ Map::Map()
 	: spriteMap(NULL)
 	, spriteTank(NULL)
 	, spriteMisc(NULL)
-	, width(), height(), blockRaw(NULL)
+	, width(), height()
 	, blockMap(NULL), imageMap(NULL)
+	, countTank(0)
 	, movHero()
 {
 	SDL_Renderer *renderer = Game::instance()->getRenderer();
@@ -92,16 +91,15 @@ bool Map::load(const char *fileName)
 	// copying
 	this->width = w;
 	this->height = h;
-	if (this->blockRaw)
-		delete[] this->blockRaw;
 	if (this->blockMap)
 		delete[] this->blockMap;
 	if (this->imageMap)
 		delete[] this->imageMap;
-	this->blockRaw = blockRaw;
 	this->blockMap = new char[size * 4];
 	this->imageMap = new int[size * 4];
+	this->countTank = 0;
 
+	// build map with unit as 32x32
 	w = width * 2;
 	h = height * 2;
 	for (int j = 0; j < height; j++) {
@@ -128,27 +126,94 @@ bool Map::load(const char *fileName)
 		}
 	}
 
+	// add unit tank
+	for (int j = 0; j < height; j++) {
+		for (int i = 0; i < width; i++) {
+			int block = blockRaw[j * width + i];
+			if (block >= 100 && block < 140) {
+				int x = i * 2 * 32;
+				int y = j * 2 * 32;
+				int tank = (block % 10) & 0x07;
+				int color = (block % 100) / 10;
+				movTanks[countTank++].init(x, y, tank, color);
+			}
+			else if (block == BLOCK_HERO) {
+				int x = i * 2 * 32;
+				int y = j * 2 * 32;
+				movHero.init(x, y);
+			}
+		}
+	}
+
+	if (blockRaw)
+		delete[] blockRaw;
 	return true;
 }
 
 bool Map::canMove(Movable *movable, int direction, SDL_Point *pt)
 {
 	if (direction == Movable::MOVE_LEFT) {
-		int current = movable->getX();
+		int current = movable->getX() / 32;
+		int unitY = movable->getY() / 32;
 		int next = current - 1;
 		if (next >= 0) {
-			pt->x = movable->getX() - 32;
-			pt->y = movable->getY();
-			return true;
+			if (blockIsPass(next, unitY) && blockIsPass(next, unitY + 1)) {
+				SDL_Rect rect = movable->getRect();
+				rect.x = next * 32;
+				if (!blockHasEnemy(&rect)) {
+					pt->x = movable->getX() - 32;
+					pt->y = movable->getY();
+					return true;
+				}
+			}
 		}
 	}
 	else if (direction == Movable::MOVE_RIGHT) {
-		int current = movable->getX();
+		int current = (movable->getX() / 32) + 1;
+		int unitY = movable->getY() / 32;
 		int next = current + 1;
 		if (next < getUnitWidth()) {
-			pt->x = movable->getX() + 32;
-			pt->y = movable->getY();
-			return true;
+			if (blockIsPass(next, unitY) && blockIsPass(next, unitY + 1)) {
+				SDL_Rect rect = movable->getRect();
+				rect.x = next * 32;
+				if (!blockHasEnemy(&rect)) {
+					pt->x = movable->getX() + 32;
+					pt->y = movable->getY();
+					return true;
+				}
+			}
+		}
+	}
+	else if (direction == Movable::MOVE_UP) {
+		int unitX = movable->getX() / 32;
+		int current = movable->getY() / 32;
+		int next = current - 1;
+		if (next >= 0) {
+			if (blockIsPass(unitX, next) && blockIsPass(unitX + 1, next)) {
+				SDL_Rect rect = movable->getRect();
+				rect.y = next * 32;
+				if (!blockHasEnemy(&rect)) {
+					pt->x = movable->getX();
+					pt->y = movable->getY() - 32;
+					return true;
+				}
+			}
+		}
+	}
+	else if (direction == Movable::MOVE_DOWN) {
+		int unitX = movable->getX() / 32;
+		int current = (movable->getY() / 32) + 1;
+		int next = current + 1;
+		if (next < getUnitHeight()) {
+			if (blockIsPass(unitX, next) && blockIsPass(unitX + 1, next)) {
+				SDL_Rect rect = movable->getRect();
+				rect.y = next * 32;
+				if (!blockHasEnemy(&rect)) {
+					pt->x = movable->getX();
+					pt->y = movable->getY() + 32;
+					return true;
+				}
+			}
 		}
 	}
 	return false;
@@ -167,6 +232,7 @@ void Map::draw(SDL_Renderer *renderer, int timeUsed)
 	viewport.w = w;
 	viewport.h = h;
 
+	// computes viewport and window
 	int x = movHero.getX();
 	int y = movHero.getY();
 	if (viewport.w < getUnitWidth() * 32) {
@@ -193,6 +259,7 @@ void Map::draw(SDL_Renderer *renderer, int timeUsed)
 		viewport.y -= h / 2;
 	}
 
+	// draws map
 	for (int j = 0; j < getUnitHeight(); j++) {
 		for (int i = 0; i < getUnitWidth(); i++) {
 			SDL_Rect rect;
@@ -204,8 +271,30 @@ void Map::draw(SDL_Renderer *renderer, int timeUsed)
 		}
 	}
 
+	// draws enemy tanks
+	for (int i = 0; i < countTank; i++) {
+		movTanks[i].play(timeUsed);
+		movTanks[i].draw(renderer, spriteTank, spriteMisc, &viewport);
+	}
+
+	// draws hero
 	movHero.play(timeUsed);
 	movHero.draw(renderer, spriteTank, spriteMisc, &viewport);
+
+	// draws layer map
+	for (int j = 0; j < getUnitHeight(); j++) {
+		for (int i = 0; i < getUnitWidth(); i++) {
+			int block = blockMap[j * getUnitWidth() + i];
+			if (block == BLOCK_TREE) {
+				SDL_Rect rect;
+				rect.x = i * 32 - viewport.x;
+				rect.y = j * 32 - viewport.y;
+				rect.w = 32;
+				rect.h = 32;
+				spriteMap->draw(renderer, imageMap[j * getUnitWidth() + i], &rect);
+			}
+		}
+	}
 }
 
 void Map::rawToMap(int raw, char *block, int *image)
@@ -237,5 +326,30 @@ void Map::rawToMap(int raw, char *block, int *image)
 		*image = 2;
 		break;
 	}
+}
+
+bool Map::blockIsPass(int unitX, int unitY)
+{
+	int block = blockMap[unitY * getUnitWidth() + unitX];
+	switch (block) {
+	case BLOCK_PASS:
+	case BLOCK_TREE:
+		return true;
+	default:
+		return false;
+	}
+}
+
+bool Map::blockHasEnemy(SDL_Rect *rect)
+{
+	int i = 0;
+	while (i < countTank) {
+		SDL_Rect enemy = movTanks[i].getRect();
+		SDL_Rect result;
+		if (SDL_IntersectRect(rect, &enemy, &result))
+			return true;
+		i++;
+	}
+	return false;
 }
 

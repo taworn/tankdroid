@@ -20,6 +20,8 @@ LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
 	scenes\scene.cxx \
 	game\arena.cxx \
 	game\map.cxx \
+	game\tankhero.cxx \
+	game\tank.cxx \
 	game\movable.cxx \
 	drawnum.cxx \
 	menu.cxx \
