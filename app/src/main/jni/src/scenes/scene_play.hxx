@@ -18,6 +18,7 @@ public:
 	virtual void render(int timeUsed);
 
 private:
+	Arena *arena;
 };
 
 #endif // SCENES_SCENE_PLAY_HXX

@@ -1,7 +1,7 @@
 **tankdroid**
 --------
 
-[ON GOING] A battle city clone game.
+A battle city clone game.
 
 **Tools and Library Usage**
 
@@ -26,6 +26,9 @@
  - stackoverflow.com - good community
  - www.sitepoint.com/using-c-and-c-code-in-an-android-app-with-the-ndk/ - for building SDL on Android
  - www.dinomage.com/2013/01/howto-sdl-on-android/ - for building SDL_image and SDL_ttf on Android
+ - www.spriters-resource.com - provide graphics, thank to Zephiel87 and Superjustinbros
+ - www.atlassian.com/git - learn Git
+ - and don't forget github.com - to host this project
 
 --------
 Taworn T.

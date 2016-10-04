@@ -11,10 +11,14 @@
 class Arena
 {
 public:
+	static const int ITEM_GUN = 0;
+	static const int ITEM_HELMET = 1;
+	static const int ITEM_STAR = 2;
+
 	/**
 	 * Destructs the arena.
 	 */
-	virtual ~Arena();
+	~Arena();
 
 	/**
 	 * Constructs the arena.
@@ -27,14 +31,24 @@ public:
 	int getScore() const { return score; }
 
 	/**
+	 * Adds score.
+	 */
+	void addScore(int point) { score += point; }
+
+	/**
 	 * Gets stage.
 	 */
 	int getStage() const { return stage; }
 
 	/**
-	 * Gets map.
+	 * Pickup item.
 	 */
-	Map* getMap() { return map; }
+	void pickItem(int item);
+
+	/**
+	 * Boosting fire power.
+	 */
+	bool boostFirepower() const { return firepower; }
 
 	/**
 	 * Starts batlle.
@@ -46,12 +60,14 @@ public:
 	 */
 	void draw(int timeUsed);
 
+	Map* getMap() const { return map; }
+
 private:
 	int score;
 	int stage;
-	Sprite *spriteTank;
+	bool firepower;
+	int firepowerTime;
 	Map *map;
-	Movable *hero;
 
 	Arena(const Arena&);
 	Arena& operator=(const Arena&);

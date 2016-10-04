@@ -16,10 +16,9 @@ ScenePlay::~ScenePlay()
 }
 
 ScenePlay::ScenePlay()
+	: arena(Game::instance()->getArena())
 {
 	SDL_Log("ScenePlay::ScenePlay()");
-
-	Arena *arena = Game::instance()->getArena();
 	arena->startBattle();
 }
 
@@ -27,27 +26,27 @@ bool ScenePlay::handleKey(SDL_KeyboardEvent key)
 {
 	SDL_Log("ScenePlay::handleKey(%d)", key.keysym.sym);
 	if (key.keysym.sym == SDLK_SPACE || key.keysym.sym == SDLK_RETURN) {
-		Game::instance()->changeScene(Game::SCENE_LOST);
+		arena->getMap()->getHero()->fire();
 		return true;
 	}
 	else if (key.keysym.sym == SDLK_a || key.keysym.sym == SDLK_LEFT) {
 		SDL_Log("press left");
-		Game::instance()->getArena()->getMap()->getHero()->move(Movable::MOVE_LEFT);
+		arena->getMap()->getHero()->move(Movable::MOVE_LEFT);
 		return true;
 	}
 	else if (key.keysym.sym == SDLK_d || key.keysym.sym == SDLK_RIGHT) {
 		SDL_Log("press right");
-		Game::instance()->getArena()->getMap()->getHero()->move(Movable::MOVE_RIGHT);
+		arena->getMap()->getHero()->move(Movable::MOVE_RIGHT);
 		return true;
 	}
 	else if (key.keysym.sym == SDLK_w || key.keysym.sym == SDLK_UP) {
 		SDL_Log("press up");
-		Game::instance()->getArena()->getMap()->getHero()->move(Movable::MOVE_UP);
+		arena->getMap()->getHero()->move(Movable::MOVE_UP);
 		return true;
 	}
 	else if (key.keysym.sym == SDLK_s || key.keysym.sym == SDLK_DOWN) {
 		SDL_Log("press down");
-		Game::instance()->getArena()->getMap()->getHero()->move(Movable::MOVE_DOWN);
+		arena->getMap()->getHero()->move(Movable::MOVE_DOWN);
 		return true;
 	}
 	return false;
@@ -55,7 +54,6 @@ bool ScenePlay::handleKey(SDL_KeyboardEvent key)
 
 void ScenePlay::render(int timeUsed)
 {
-	Game *game = Game::instance();
-	game->getArena()->draw(timeUsed);
+	arena->draw(timeUsed);
 }
 

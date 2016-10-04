@@ -21,6 +21,8 @@ public:
 	 */
 	void init(int x, int y, int tank, int color);
 
+	virtual void dead();
+
 private:
 	Tank(const Tank&);
 	Tank& operator=(const Tank&);

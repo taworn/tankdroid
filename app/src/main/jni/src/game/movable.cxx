@@ -13,12 +13,14 @@ Movable::~Movable()
 }
 
 Movable::Movable()
-	: action(ACTION_IDLE)
+	: action(ACTION_DEAD)
 	, direction(0), nextDirection(0)
-	, timePerDead(250), timePerMove(150)
+	, timePerDead(250), timePerMove(250)
 	, timeUsed(0)
 	, lock()
-	, hp(0)
+	, hp(0), score(0)
+	, rof(250), fireTime(250), fireAfterLock(false)
+	, hero(false)
 	, ani()
 	, arena(Game::instance()->getArena())
 {
@@ -26,6 +28,7 @@ Movable::Movable()
 	rect.y = 0;
 	rect.w = 64;
 	rect.h = 64;
+	ani.add(ACTION_DEAD, 8, 11, Animation::ON_END_HIDDEN, timePerDead);
 }
 
 void Movable::move(int dir)
@@ -78,18 +81,69 @@ void Movable::play(int timeUsed)
 			rect.x += dx;
 			rect.y += dy;
 			this->timeUsed += timeUsed;
+			if (isHero()) {
+				SDL_Rect rect = getRect();
+				getArena()->getMap()->checkItems(&rect);
+			}
 		}
 		else {
 			rect.x = target.x;
 			rect.y = target.y;
 			lock = false;
+			if (fireAfterLock) {
+				fireAfterLock = false;
+				fire();
+			}
 			if (nextDirection > 0)
 				move(nextDirection);
 		}
 	}
 }
 
-void Movable::draw(SDL_Renderer *renderer, Sprite *spriteTank, Sprite *spriteMisc, SDL_Rect *viewport)
+void Movable::fire()
+{
+	if (lock) {
+		fireAfterLock = true;
+		return;
+	}
+
+	// not enough fire time?
+	if (fireTime < rof)
+		return;
+
+	// check direction
+	int x, y;
+	if (action == ACTION_MOVE_LEFT) {
+		x = getX();
+		y = getY() + 32;
+	}
+	else if (action == ACTION_MOVE_RIGHT) {
+		x = getX() + 63;
+		y = getY() + 32;
+	}
+	else if (action == ACTION_MOVE_UP) {
+		x = getX() + 32;
+		y = getY();
+	}
+	else if (action == ACTION_MOVE_DOWN) {
+		x = getX() + 32;
+		y = getY() + 63;
+	}
+	else
+		return;
+
+	// if bullets is not full maximum limit?
+	if (getArena()->getMap()->addBullet(x, y, action))
+		fireTime = 0;
+}
+
+void Movable::dead()
+{
+	action = ACTION_DEAD;
+	ani.use(ACTION_DEAD);
+}
+
+void Movable::draw(SDL_Renderer *renderer, Sprite *spriteTank, Sprite *spriteMisc, SDL_Rect *viewport, int timeUsed)
 {
 	SDL_Point point;
 	point.x = this->rect.x - viewport->x;
@@ -100,6 +154,11 @@ void Movable::draw(SDL_Renderer *renderer, Sprite *spriteTank, Sprite *spriteMis
 	rect.y = point.y;
 	rect.w = 64;
 	rect.h = 64;
-	ani.draw(renderer, spriteTank, &rect);
+	if (isAlive())
+		ani.draw(renderer, spriteTank, &rect);
+	else
+		ani.draw(renderer, spriteMisc, &rect);
+
+	fireTime += timeUsed;
 }
 

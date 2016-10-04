@@ -15,6 +15,8 @@ LOCAL_SRC_FILES := \
 	scenes\scene.cxx \
 	game\arena.cxx \
 	game\map.cxx \
+	game\item.cxx \
+	game\bullet.cxx \
 	game\tankhero.cxx \
 	game\tank.cxx \
 	game\movable.cxx \
