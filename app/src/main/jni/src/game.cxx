@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "game.hxx"
 #include "scenes/scene.hxx"
 #include "scenes/scene_title.hxx"
@@ -27,6 +28,9 @@ Game::~Game()
 
 	// deletes draw number
 	delete drawNumberSmall;
+
+	// deletes musics
+	Mix_FreeMusic(musicOpen);
 
 	// closes fonts
 	TTF_CloseFont(fontLarge);
@@ -66,6 +70,10 @@ Game::Game()
 	fontSmall = TTF_OpenFont(TANK_RES_("freefont", "FreeSans.ttf"), 24);
 	fontMedium = TTF_OpenFont(TANK_RES_("freefont", "FreeSans.ttf"), 32);
 	fontLarge = TTF_OpenFont(TANK_RES_("freefont", "FreeSerifBold.ttf"), 64);
+
+	// loads musics
+	musicOpen = Mix_LoadMUS(TANK_RES("open.wav"));
+	Mix_PlayMusic(musicOpen, -1);
 
 	// creates draw number
 	drawNumberSmall = new DrawNumber(renderer, fontSmall, { 0x80, 0x80, 0x80 });

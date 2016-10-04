@@ -76,6 +76,7 @@ private:
 	TTF_Font *fontSmall;
 	TTF_Font *fontMedium;
 	TTF_Font *fontLarge;
+	Mix_Music *musicOpen;
 	DrawNumber *drawNumberSmall;
 	Arena *arena;
 	Scene *scene;

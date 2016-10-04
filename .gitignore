@@ -43,6 +43,7 @@ captures/
 app/src/main/jni/SDL/
 app/src/main/jni/SDL_image/
 app/src/main/jni/SDL_ttf/
+app/src/main/jni/SDL_mixer/
 app/src/main/jniLibs/
 app/src/main/obj/
 

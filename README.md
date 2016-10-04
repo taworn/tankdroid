@@ -9,12 +9,14 @@ A battle city clone game.
  - SDL2 v.2.0.4
  - SDL2_image v.2.0.1
  - SDL2_ttf v.2.0.14
+ - SDL2_mixer v.2.0.1
 
 **Build**
 
- - download and unzip SDL2, SDL2_image, SDL2_ttf
+ - download and unzip SDL2, SDL2_image, SDL2_ttf, SDL2_mixer
  - move downloaded files to tankdroid/app/src/main/jni
- - rename them to SDL, SDL_image, SDL_ttf
+ - rename them to SDL, SDL_image, SDL_ttf, SDL_mixer
+ - for SDL_mixer, you need a workaround, open SDL_mixer/Android.mk in editor and change "?= true" to ":= false"
  - move current directory to tankdroid/app/src/main/jni
  - run "ndk-build NDK_LIBS_OUT=../jniLibs"
  - open Android Studio and build Java part
