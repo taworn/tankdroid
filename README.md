@@ -1,5 +1,5 @@
 **tankdroid**
---------
+---------
 
 A battle city clone game.
 
@@ -22,17 +22,27 @@ A battle city clone game.
  - open Android Studio and build Java part
  - that's all ^_^
 
+**How to Play**
+
+ - key circle (left) to select menu or shoot
+ - key circle (right) to choose menu
+ - key cross to move tank
+ - if you get shot, your HP decrease
+ - if you HP decrease to zero, you die and game over
+ - you have to shoot and destroy all eagle(s) to win stage
+
 **Thank**
 
+ - github.com - to host this project
  - google.com - to search every time when you want to learn any new things
  - stackoverflow.com - good community
  - www.sitepoint.com/using-c-and-c-code-in-an-android-app-with-the-ndk/ - for building SDL on Android
  - www.dinomage.com/2013/01/howto-sdl-on-android/ - for building SDL_image and SDL_ttf on Android
  - www.spriters-resource.com - provide graphics, thank to Zephiel87 and Superjustinbros
- - www.atlassian.com/git - learn Git
- - and don't forget github.com - to host this project
+ - www.sounds-resource.com - provide sounds, thank to J-Sinn
+ - and Namco Limited (www.namco.co.jp) to build this original game
 
---------
+---------
 Taworn T.
 
 My English is very poor, I'm not English native, sorry. T_T

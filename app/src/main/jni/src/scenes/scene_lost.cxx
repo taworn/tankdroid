@@ -12,6 +12,7 @@
 
 SceneLost::~SceneLost()
 {
+	Mix_FreeMusic(music);
 	delete menu;
 	delete spriteTank;
 	SDL_DestroyTexture(texture);
@@ -34,6 +35,9 @@ SceneLost::SceneLost()
 		"Restart",
 	};
 	menu = new Menu(game->getRenderer(), game->getFontMedium(), { 0xFF, 0xFF, 0xFF }, entries, 2, 32, 48, spriteTank, &aniMenu, 2);
+
+	music = Mix_LoadMUS(TANK_RES("lost.wav"));
+	Mix_PlayMusic(music, 0);
 }
 
 bool SceneLost::handleKey(SDL_KeyboardEvent key)

@@ -23,6 +23,7 @@ private:
 	Sprite *spriteTank;
 	Animation aniMenu;
 	Menu *menu;
+	Mix_Music *music;
 };
 
 #endif // SCENES_SCENE_LOST_HXX

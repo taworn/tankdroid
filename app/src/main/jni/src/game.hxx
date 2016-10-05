@@ -47,6 +47,21 @@ public:
 	Game();
 
 	/**
+	 * Plays sound effect shot.
+	 */
+	void playShot();
+
+	/**
+	 * Plays sound effect bomb.
+	 */
+	void playBomb();
+
+	/**
+	 * Plays sound effect item.
+	 */
+	void playItem();
+
+	/**
 	 * Gets current arena.
 	 */
 	Arena* getArena() { return arena; }
@@ -76,6 +91,9 @@ private:
 	TTF_Font *fontSmall;
 	TTF_Font *fontMedium;
 	TTF_Font *fontLarge;
+	Mix_Chunk *sfxShot;
+	Mix_Chunk *sfxBomb;
+	Mix_Chunk *sfxItem;
 	Mix_Music *musicOpen;
 	DrawNumber *drawNumberSmall;
 	Arena *arena;

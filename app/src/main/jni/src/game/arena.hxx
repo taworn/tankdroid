@@ -51,9 +51,14 @@ public:
 	bool boostFirepower() const { return firepower; }
 
 	/**
-	 * Starts batlle.
+	 * Starts battle.
 	 */
 	void startBattle();
+
+	/**
+	 * Ends battle.
+	 */
+	void endBattle();
 
 	/**
 	 * Draws a battle scene.
@@ -63,6 +68,7 @@ public:
 	Map* getMap() const { return map; }
 
 private:
+	Mix_Music *musicTrack;
 	int score;
 	int stage;
 	bool firepower;

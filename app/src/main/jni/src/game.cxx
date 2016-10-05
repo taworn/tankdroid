@@ -32,6 +32,11 @@ Game::~Game()
 	// deletes musics
 	Mix_FreeMusic(musicOpen);
 
+	// deletes sound effects
+	Mix_FreeChunk(sfxItem);
+	Mix_FreeChunk(sfxBomb);
+	Mix_FreeChunk(sfxShot);
+
 	// closes fonts
 	TTF_CloseFont(fontLarge);
 	TTF_CloseFont(fontMedium);
@@ -47,6 +52,8 @@ Game::~Game()
 Game::Game()
 	: window(NULL), renderer(NULL), surfaceWindow(NULL)
 	, fontSmall(NULL), fontMedium(NULL), fontLarge(NULL)
+	, sfxShot(NULL), sfxBomb(NULL), sfxItem(NULL)
+	, musicOpen(NULL)
 	, drawNumberSmall(NULL)
 	, scene(NULL), nextSceneId(SCENE_TITLE)
 {
@@ -71,15 +78,35 @@ Game::Game()
 	fontMedium = TTF_OpenFont(TANK_RES_("freefont", "FreeSans.ttf"), 32);
 	fontLarge = TTF_OpenFont(TANK_RES_("freefont", "FreeSerifBold.ttf"), 64);
 
+	// loads sound effects
+	sfxShot = Mix_LoadWAV(TANK_RES("shot.wav"));
+	sfxBomb = Mix_LoadWAV(TANK_RES("bomb.wav"));
+	sfxItem = Mix_LoadWAV(TANK_RES("item.wav"));
+
 	// loads musics
 	musicOpen = Mix_LoadMUS(TANK_RES("open.wav"));
-	Mix_PlayMusic(musicOpen, -1);
+	Mix_PlayMusic(musicOpen, 0);
 
 	// creates draw number
 	drawNumberSmall = new DrawNumber(renderer, fontSmall, { 0x80, 0x80, 0x80 });
 
 	// creates arena
 	arena = new Arena();
+}
+
+void Game::playShot()
+{
+	Mix_PlayChannel(-1, sfxShot, 0);
+}
+
+void Game::playBomb()
+{
+	Mix_PlayChannel(-1, sfxBomb, 0);
+}
+
+void Game::playItem()
+{
+	Mix_PlayChannel(-1, sfxItem, 0);
 }
 
 void Game::changeScene(int sceneId)
@@ -184,11 +211,13 @@ void Game::run()
 				if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
 					SDL_Log("window gained focus");
 					active = true;
+					Mix_ResumeMusic();
 					timeLast = SDL_GetTicks();
 				}
 				else if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
 					SDL_Log("window lost focus");
 					active = false;
+					Mix_PauseMusic();
 				}
 			}
 			else if (e.type == SDL_QUIT) {

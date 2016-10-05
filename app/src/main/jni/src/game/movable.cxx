@@ -142,6 +142,7 @@ void Movable::dead()
 {
 	action = ACTION_DEAD;
 	ani.use(ACTION_DEAD);
+	Game::instance()->playBomb();
 }
 
 void Movable::draw(SDL_Renderer *renderer, Sprite *spriteTank, Sprite *spriteMisc, SDL_Rect *viewport, int timeUsed)

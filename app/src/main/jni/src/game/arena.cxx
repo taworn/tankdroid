@@ -13,6 +13,7 @@ Arena::~Arena()
 {
 	if (map != NULL)
 		delete map;
+	Mix_FreeMusic(musicTrack);
 	SDL_Log("Arena::~Arena()");
 }
 
@@ -22,6 +23,7 @@ Arena::Arena()
 	, map(NULL)
 {
 	SDL_Log("Arena::Arena()");
+	musicTrack = Mix_LoadMUS(TANK_RES("track.wav"));
 }
 
 void Arena::pickItem(int item)
@@ -48,6 +50,12 @@ void Arena::startBattle()
 	firepower = false;
 	map = new Map();
 	map->load(TANK_RES("test.map"));
+	Mix_PlayMusic(musicTrack, -1);
+}
+
+void Arena::endBattle()
+{
+	Mix_PauseMusic();
 }
 
 void Arena::draw(int timeUsed)

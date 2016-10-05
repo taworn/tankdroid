@@ -19,6 +19,7 @@ public:
 
 private:
 	Arena *arena;
+	int keyTime;
 };
 
 #endif // SCENES_SCENE_PLAY_HXX

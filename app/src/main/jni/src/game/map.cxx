@@ -285,6 +285,7 @@ bool Map::addBullet(int x, int y, int action)
 	if (countBullets >= 64)
 		return false;
 	bullets[countBullets++] = new Bullet(x, y, action);
+	Game::instance()->playShot();
 	return true;
 }
 
@@ -325,6 +326,7 @@ bool Map::checkItems(SDL_Rect *rect)
 				items[i].done();
 				countItems--;
 				arena->pickItem(item);
+				Game::instance()->playItem();
 				return true;
 			}
 		}
