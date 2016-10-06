@@ -24,6 +24,7 @@ SceneStage::SceneStage()
 {
 	SDL_Log("SceneStage::SceneStage()");
 	Game *game = Game::instance();
+	game->getArena()->save();
 	char buffer[16];
 	sprintf(buffer, "Stage %d", game->getArena()->getStage() + 1);
 	surface = TTF_RenderUTF8_Blended(game->getFontLarge(), buffer, { 0xFF, 0xFF, 0xFF });

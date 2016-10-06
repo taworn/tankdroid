@@ -26,6 +26,11 @@ public:
 	Arena();
 
 	/**
+	 * SAves data.
+	 */
+	void save();
+
+	/**
 	 * Restarts game.
 	 */
 	void restart();
@@ -97,6 +102,8 @@ private:
 	bool firepower;
 	int firepowerTime;
 	Map *map;
+
+	bool load();
 
 	Arena(const Arena&);
 	Arena& operator=(const Arena&);

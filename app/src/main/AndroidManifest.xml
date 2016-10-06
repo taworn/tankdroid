@@ -3,8 +3,8 @@
  Replace org.libsdl.app with the identifier of your game below, e.g.
      com.gamemaker.game
 -->
-<manifest package="diy.tankdroid"
-          xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="diy.tankdroid"
           android:installLocation="auto"
           android:versionCode="1"
           android:versionName="1.0"> <!-- Android 2.3.3 -->
@@ -53,6 +53,7 @@
             android:name="diy.tankdroid.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name">
+            <!--android:screenOrientation="landscape"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
