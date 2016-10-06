@@ -134,7 +134,7 @@ void Movable::fire()
 		return;
 
 	// if bullets is not full maximum limit?
-	if (getArena()->getMap()->addBullet(x, y, action))
+	if (getArena()->getMap()->addBullet(x, y, action, isHero()))
 		fireTime = 0;
 }
 

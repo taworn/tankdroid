@@ -18,6 +18,7 @@ public:
 	virtual void render(int timeUsed);
 
 private:
+	Mix_Music *musicTrack;
 	Arena *arena;
 	int keyTime;
 };

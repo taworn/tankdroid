@@ -72,13 +72,16 @@ public:
 	int getUnitX() const { return rect.x / 32; }
 	int getUnitY() const { return rect.y / 32; }
 	const SDL_Rect getRect() const { return rect; }
-
 	bool isMovingAction() const { return action >= ACTION_MOVE_LEFT && action <= ACTION_MOVE_DOWN; }
 
-	int getHP() const { return hp; }
+	int getHP() const { return hp > 0 ? hp : 0; }
 	void decreaseHP(int dec) { hp -= dec; }
 
 	int getScore() const { return score; }
+
+	bool canFire() const { return fireTime >= rof; }
+
+	bool isHero() const { return hero; }
 
 protected:
 	int getTimePerDead() const { return timePerDead; }
@@ -91,7 +94,6 @@ protected:
 	void setScore(int score) { this->score = score; }
 	void setROF(int rof) { this->rof = rof; }
 
-	bool isHero() const { return hero; }
 	void setHero() { hero = true; }
 
 	Animation* getAni() { return &ani; }

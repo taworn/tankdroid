@@ -2,7 +2,6 @@ package diy.tankdroid;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,7 +42,6 @@ public class Controller {
                 float x = event.getX() - w;
                 float y = event.getY() - h;
                 float ratio = y / x;
-                Log.d(TAG, String.format("(x, y) ratio = (%2f, %2f) %2f", x, y, ratio));
 
                 if (Math.abs(ratio) > 1) {
                     // up or down

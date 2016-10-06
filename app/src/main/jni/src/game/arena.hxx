@@ -26,6 +26,11 @@ public:
 	Arena();
 
 	/**
+	 * Restarts game.
+	 */
+	void restart();
+
+	/**
 	 * Gets score.
 	 */
 	int getScore() const { return score; }
@@ -39,6 +44,19 @@ public:
 	 * Gets stage.
 	 */
 	int getStage() const { return stage; }
+
+	/**
+	 * Nexts stage.  Returns true if ok, otherwise, it is false and you win game.
+	 */
+	bool nextStage()
+	{
+		if (stage + 1 < STAGE_COUNT) {
+			stage++;
+			return true;
+		}
+		else
+			return false;
+	}
 
 	/**
 	 * Pickup item.
@@ -56,9 +74,9 @@ public:
 	void startBattle();
 
 	/**
-	 * Ends battle.
+	 * Ends battle and report result.  Returns 1 is win, returns -1 is loss.
 	 */
-	void endBattle();
+	int endBattle();
 
 	/**
 	 * Draws a battle scene.
@@ -68,7 +86,12 @@ public:
 	Map* getMap() const { return map; }
 
 private:
-	Mix_Music *musicTrack;
+	SDL_Surface *surfaceScore;
+	SDL_Texture *textureScore;
+	SDL_Surface *surfaceHP;
+	SDL_Texture *textureHP;
+	DrawNumber *drawNumber;
+
 	int score;
 	int stage;
 	bool firepower;

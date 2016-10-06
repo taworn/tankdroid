@@ -46,10 +46,14 @@ bool SceneLost::handleKey(SDL_KeyboardEvent key)
 	bool handled = menu->handleKey(key);
 	if (!handled && key.keysym.sym == SDLK_RETURN) {
 		SDL_Log("menu selected %d", menu->getSelected());
-		if (menu->getSelected() == 0)
+		if (menu->getSelected() == 0) {
+			SDL_Log("continue selected");
 			Game::instance()->changeScene(Game::SCENE_STAGE);
-		else if (menu->getSelected() == 1)
+		}
+		else if (menu->getSelected() == 1) {
+			SDL_Log("restart selected");
 			Game::instance()->changeScene(Game::SCENE_TITLE);
+		}
 		return true;
 	}
 	return false;

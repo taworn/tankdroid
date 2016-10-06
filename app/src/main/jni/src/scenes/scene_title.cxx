@@ -9,6 +9,7 @@
 #include "../game.hxx"
 #include "scene.hxx"
 #include "scene_title.hxx"
+#include "../game/common.hxx"
 
 SceneTitle::~SceneTitle()
 {
@@ -52,6 +53,8 @@ bool SceneTitle::handleKey(SDL_KeyboardEvent key)
 	bool handled = menu->handleKey(key);
 	if (!handled && key.keysym.sym == SDLK_RETURN) {
 		SDL_Log("menu selected %d", menu->getSelected());
+		if (menu->getSelected() == 1)
+			Game::instance()->getArena()->restart();
 		Game::instance()->changeScene(Game::SCENE_STAGE);
 		return true;
 	}

@@ -77,6 +77,16 @@ void Tank::init(int x, int y, int tank, int color)
 	getAni()->use(ACTION_MOVE_DOWN);
 }
 
+void Tank::ai()
+{
+	unsigned int t = SDL_GetTicks() % 4;
+	t = 1 << t;
+	move(t);
+
+	if (canFire())
+		fire();
+}
+
 void Tank::dead()
 {
 	Movable::dead();

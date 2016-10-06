@@ -21,6 +21,11 @@ public:
 	 */
 	void init(int x, int y, int tank, int color);
 
+	/**
+	 * Makes decision.
+	 */
+	void ai();
+
 	virtual void dead();
 
 private:

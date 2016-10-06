@@ -13,11 +13,12 @@ Bullet::~Bullet()
 {
 }
 
-Bullet::Bullet(int x, int y, int action)
+Bullet::Bullet(int x, int y, int action, bool hero)
 	: direction(action)
 	, timePerMove(50)
 	, timeUsed(0)
 	, deleted(false)
+	, fromHero(hero)
 	, arena(Game::instance()->getArena())
 {
 	point.x = x;
@@ -56,7 +57,7 @@ bool Bullet::shouldBeDelete()
 
 bool Bullet::check()
 {
-	if (arena->getMap()->canShot(point.x, point.y, direction, &target)) {
+	if (arena->getMap()->canShot(this, &target)) {
 		return true;
 	}
 	else {

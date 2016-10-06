@@ -28,3 +28,8 @@ void TankHero::init(int x, int y)
 	getAni()->use(ACTION_MOVE_UP);
 }
 
+void TankHero::dead()
+{
+	Movable::dead();
+}
+

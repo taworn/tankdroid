@@ -34,7 +34,7 @@ public:
 	/**
 	 * Checks if bullet direction is can be pass.
 	 */
-	bool canShot(int x, int y, int direction, SDL_Point *pt);
+	bool canShot(Bullet *bullet, SDL_Point *pt);
 
 	/**
 	 * Checks if position, in pixels, is in bounds or not.
@@ -44,7 +44,7 @@ public:
 	/**
 	 * Adds bullet.
 	 */
-	bool addBullet(int x, int y, int action);
+	bool addBullet(int x, int y, int action, bool hero);
 
 	/**
 	 * Adds item.
@@ -68,13 +68,25 @@ public:
 
 	Movable* getHero() { return &movHero; }
 
+	bool isEnd() const { return ending && endingTime > 1500; }
+	bool isWin() const { return ending && movHero.isAlive(); }
+
 private:
+	struct EAGLE {
+		int hp;
+		bool start;
+		SDL_Point point;
+		Animation ani;
+	};
+
 	Sprite *spriteMap;
 	Sprite *spriteTank;
 	Sprite *spriteMisc;
+	Sprite *spriteMiscBig;
 
 	// map parsed
 	int width, height;
+	void **dataMap;
 	char *blockMap;
 	int *imageMap;
 
@@ -82,10 +94,15 @@ private:
 	int countTank;
 	int countBullets;
 	int countItems;
+	int countEagles;
 	Tank movTanks[64];
-	TankHero movHero;
 	Bullet *bullets[64];
 	Item items[4];
+
+	// the hero
+	TankHero movHero;
+	int ending;
+	int endingTime;
 
 	Arena *arena;
 
@@ -99,9 +116,11 @@ private:
 
 	void rawToMap(int raw, char *block, int *image);
 	bool blockIsPass(int unitX, int unitY);
-	bool blockHasEnemy(SDL_Rect *rect);
-	bool blockIsShootPass(int unitX, int unitY);
-	bool blockShootEnemy(int x, int y);
+	bool blockHasEnemy(Movable *movable, SDL_Rect *rect);
+	bool blockIsShootPass(Bullet *bullet, int unitX, int unitY);
+	bool blockShootEnemy(Bullet *bullet, int x, int y);
+
+	void endingScene();
 
 	Map(const Map&);
 	Map& operator=(const Map&);
