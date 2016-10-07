@@ -1,7 +1,7 @@
 **tankdroid**
 ---------
 
-A battle city clone game, port from tankman.
+A battle city clone game, port from tankman (https://github.com/taworn/tankman).
 
 **Tools and Library Usage**
 

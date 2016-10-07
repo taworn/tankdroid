@@ -59,6 +59,7 @@ void Movable::move(int dir)
 			distance.y = target.y - rect.y;
 			timeUsed = 0;
 			lock = true;
+			direction = dir;
 			nextDirection = 0;
 		}
 	}

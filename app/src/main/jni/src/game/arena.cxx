@@ -99,8 +99,8 @@ void Arena::startBattle()
 	firepower = false;
 
 	char buffer[64] = { 0 };
-	SDL_snprintf(buffer, 63, TANK_RES("debug0.map"), stage);
-	//SDL_snprintf(buffer, 63, TANK_RES("%04d.map"), stage);
+	//SDL_snprintf(buffer, 63, TANK_RES("debug2.map"), stage);
+	SDL_snprintf(buffer, 63, TANK_RES("%04d.map"), stage);
 	map = new Map();
 	map->load(buffer);
 }

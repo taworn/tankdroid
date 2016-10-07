@@ -79,11 +79,29 @@ void Tank::init(int x, int y, int tank, int color)
 
 void Tank::ai()
 {
-	unsigned int t = SDL_GetTicks() % 4;
-	t = 1 << t;
-	move(t);
+	int randoms[8] = { 0 };
+	int end = 0;
+	int dir = currentDirection();
+	if (dir != 0) {
+		randoms[end++] = currentDirection();
+		randoms[end++] = currentDirection();
+	}
+	randoms[end++] = MOVE_LEFT;
+	randoms[end++] = MOVE_RIGHT;
+	randoms[end++] = MOVE_UP;
+	randoms[end++] = MOVE_DOWN;
+	if (dir != 0) {
+		randoms[end++] = currentDirection();
+		randoms[end++] = currentDirection();
+	}
 
-	if (canFire())
+	if (dir != 0)
+		dir = randoms[SDL_GetTicks() % 8];
+	else
+		dir = randoms[SDL_GetTicks() % 4];
+	move(dir);
+
+	if (canFire() && SDL_GetTicks() % 3)
 		fire();
 }
 

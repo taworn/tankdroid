@@ -73,6 +73,7 @@ public:
 	int getUnitY() const { return rect.y / 32; }
 	const SDL_Rect getRect() const { return rect; }
 	bool isMovingAction() const { return action >= ACTION_MOVE_LEFT && action <= ACTION_MOVE_DOWN; }
+	int currentDirection() const { return direction; }
 
 	int getHP() const { return hp > 0 ? hp : 0; }
 	void decreaseHP(int dec) { hp -= dec; }
